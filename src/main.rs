@@ -1,5 +1,7 @@
 use std::io;
 use std::os::unix::io::RawFd;
+use std::fs::File;
+use std::os::unix::io::FromRawFd;
 
 mod win;
 mod st;
@@ -395,18 +397,20 @@ fn _base64dec_getc(_s: &mut &str) -> char {
     '\0'
 }
 
+
 fn xwrite(fd: RawFd, buf: &[u8]) -> io::Result<usize> {
     let mut len = buf.len();
     let mut written = 0;
+    let file = unsafe { File::from_raw_fd(fd) };
 
     while len > 0 {
-        match nix::unistd::write(fd, &buf[written..]) {
+        match nix::unistd::write(&file, &buf[written..]) {
             Ok(r) => {
                 written += r;
                 len -= r;
             },
             Err(e) => {
-                if e.as_errno().unwrap() == nix::errno::Errno::EINTR {
+                if e == nix::errno::Errno::EINTR {
                     // Interrupted by a signal, try again
                     continue;
                 }
