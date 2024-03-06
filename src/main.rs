@@ -117,7 +117,25 @@ struct Coordinates {
 }
 
 
-// ...and so on for the other structs
+struct Term {
+    row: i32,           // Number of rows
+    col: i32,           // Number of columns
+    line: Vec<Line>,    // Screen buffer
+    alt: Vec<Line>,     // Alternate screen buffer
+    dirty: Vec<bool>,   // Dirtiness of lines
+    cursor: TCursor,    // Cursor
+    ocx: i32,           // Old cursor column
+    ocy: i32,           // Old cursor row
+    top: i32,           // Top scroll limit
+    bot: i32,           // Bottom scroll limit
+    mode: i32,          // Terminal mode flags
+    esc: i32,           // Escape state flags
+    trantbl: [char; 4], // Charset table translation
+    charset: i32,       // Current charset
+    icharset: i32,      // Selected charset for sequence
+    tabs: Vec<bool>,    // Tab stops
+    lastc: Rune,        // Last printed character (0 if control character)
+}
 
 // CSI Escape sequence struct
 struct CSIEscape {
