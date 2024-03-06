@@ -131,9 +131,12 @@ struct CSIEscape {
 
 // STR Escape sequence struct
 struct STREscape {
-    type_: char,      // ESC type ...
-    buf: Vec<char>,   // allocated raw string
-    // ... other fields as in the C struct
+    escape_type: char,            // ESC type
+    buf: String,                  // Allocated raw string
+    size: usize,                  // Allocation size
+    length: usize,                // Raw string length
+    args: Vec<String>,            // Arguments
+    num_args: usize,              // Number of arguments
 }
 
 
