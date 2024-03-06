@@ -29,7 +29,7 @@ fn is_control_c0(c: char) -> bool {
 }
 
 fn is_control_c1(c: char) -> bool {
-    ('\x80'..='\x9f').contains(&c)
+    ('\u{80}'..='\u{9f}').contains(&c)
 }
 
 fn is_control(c: char) -> bool {
