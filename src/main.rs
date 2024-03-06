@@ -410,10 +410,6 @@ fn xwrite(fd: RawFd, buf: &[u8]) -> io::Result<usize> {
                 len -= r;
             },
             Err(e) => {
-                if e == nix::errno::Errno::EINTR {
-                    // Interrupted by a signal, try again
-                    continue;
-                }
                 return Err(io::Error::from_raw_os_error(e as i32));
             }
         }
