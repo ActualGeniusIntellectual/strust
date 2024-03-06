@@ -1,9 +1,8 @@
 # strust
 
-**st Translation Project**
+## st Translation Project
 
-
-## Project Overview
+### Project Overview
 
 The `strust` project involves translating the `suckless terminal (st)` program from C to Rust. This initiative is centered around the following key goals:
 
@@ -13,7 +12,7 @@ The `strust` project involves translating the `suckless terminal (st)` program f
 
 3. **Deep Dive into Terminal Technologies**: Gaining a comprehensive understanding of terminal-based technologies with the aim to contribute innovative solutions, potentially integrating the latest advancements in terminal technology into a unified system.
 
-## Approach
+### Approach
 
 **Modular Translation**: The translation of the `suckless terminal` source code in the `strust` project will be conducted in manageable segments, considering the extensive size of the original code.
 
@@ -21,7 +20,7 @@ The `strust` project involves translating the `suckless terminal (st)` program f
 
 **Progressive Development**: The project will progress in phases, focusing on small, achievable milestones that collectively lead to the complete translation of the terminal program.
 
-## How to Contribute
+### How to Contribute
 
 Contributions to the `strust` project are welcome in the following areas:
 
@@ -30,6 +29,6 @@ Contributions to the `strust` project are welcome in the following areas:
 **Testing**: Identifying and reporting any bugs or issues in the translated software.
 **Feature Suggestions**: Ideas for new features or improvements.
 
-## License
+### License
 
 The `strust` project is licensed under the Creative Commons Zero v1.0 Universal License. For more information, please see LICENSE.
