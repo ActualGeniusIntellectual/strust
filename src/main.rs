@@ -95,12 +95,27 @@ struct TCursor {
     state: char,
 }
 
+// Define a Rust struct corresponding to the C Selection struct
 struct Selection {
     mode: i32,
-    type_: i32,
+    selection_type: i32, // Renamed from `type` to `selection_type` to avoid Rust keyword conflict
     snap: i32,
-    // ... other fields as in the C struct
+
+    // The nested struct is now a distinct Rust struct
+    nb: Coordinates, // normalized coordinates of the beginning of the selection
+    ne: Coordinates, // normalized coordinates of the end of the selection
+    ob: Coordinates, // original coordinates of the beginning of the selection
+    oe: Coordinates, // original coordinates of the end of the selection
+
+    alt: i32,
 }
+
+// Define the Coordinates struct used in Selection
+struct Coordinates {
+    x: i32,
+    y: i32,
+}
+
 
 // ...and so on for the other structs
 
