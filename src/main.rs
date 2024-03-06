@@ -163,240 +163,240 @@ type Rune = u32; // Placeholder type, adjust as needed
 struct Glyph; // Placeholder struct, define as needed
 
 // Functions translated from C to Rust
-fn execsh(cmd: *mut char, args: *mut *mut char) {
+fn _execsh(_cmd: *mut char, _args: *mut *mut char) {
     // Function body to be implemented
 }
 
-fn stty(args: *mut *mut char) {
+fn _stty(_args: *mut *mut char) {
     // Function body to be implemented
 }
 
-fn sigchld(signum: i32) {
+fn _sigchld(_signum: i32) {
     // Function body to be implemented
 }
 
-fn tty_writeraw(s: *const char, len: usize) {
+fn _tty_writeraw(_s: *const char, _len: usize) {
     // Function body to be implemented
 }
 
-fn csi_dump() {
+fn _csi_dump() {
     // Function body to be implemented
 }
 
-fn csi_handle() {
+fn _csi_handle() {
     // Function body to be implemented
 }
 
-fn csi_parse() {
+fn _csi_parse() {
     // Function body to be implemented
 }
 
-fn csi_reset() {
+fn _csi_reset() {
     // Function body to be implemented
 }
 
-fn osc_color_response(p1: i32, p2: i32, p3: i32) {
+fn _osc_color_response(_p1: i32, _p2: i32, _p3: i32) {
     // Function body to be implemented
 }
 
-fn eschandle(c: u8) -> i32 {
-    // Function body to be implemented
-    0
-}
-
-fn str_dump() {
-    // Function body to be implemented
-}
-
-fn str_handle() {
-    // Function body to be implemented
-}
-
-fn str_parse() {
-    // Function body to be implemented
-}
-
-fn str_reset() {
-    // Function body to be implemented
-}
-
-fn tprinter(s: *mut char, len: usize) {
-    // Function body to be implemented
-}
-
-fn tdumpsel() {
-    // Function body to be implemented
-}
-
-fn tdumpline(line: i32) {
-    // Function body to be implemented
-}
-
-fn tdump() {
-    // Function body to be implemented
-}
-
-fn tclearregion(x1: i32, y1: i32, x2: i32, y2: i32) {
-    // Function body to be implemented
-}
-
-fn tcursor(mode: i32) {
-    // Function body to be implemented
-}
-
-fn tdeletechar(n: i32) {
-    // Function body to be implemented
-}
-
-fn tdeleteline(n: i32) {
-    // Function body to be implemented
-}
-
-fn tinsertblank(n: i32) {
-    // Function body to be implemented
-}
-
-fn tinsertblankline(n: i32) {
-    // Function body to be implemented
-}
-
-fn tlinelen(line: i32) -> i32 {
+fn _eschandle(_c: u8) -> i32 {
     // Function body to be implemented
     0
 }
 
-fn tmoveto(x: i32, y: i32) {
+fn _str_dump() {
     // Function body to be implemented
 }
 
-fn tmoveato(cx: i32, cy: i32) {
+fn _str_handle() {
     // Function body to be implemented
 }
 
-fn tnewline(first_col: i32) {
+fn _str_parse() {
     // Function body to be implemented
 }
 
-fn tputtab(one_if_set: i32) {
+fn _str_reset() {
     // Function body to be implemented
 }
 
-fn tputc(u: Rune) {
+fn _tprinter(_s: *mut char, _len: usize) {
     // Function body to be implemented
 }
 
-fn treset() {
+fn _tdumpsel() {
     // Function body to be implemented
 }
 
-fn tscrollup(top: i32, bot: i32) {
+fn _tdumpline(_line: i32) {
     // Function body to be implemented
 }
 
-fn tscrolldown(top: i32, bot: i32) {
+fn _tdump() {
     // Function body to be implemented
 }
 
-fn tsetattr(attrs: &[i32], l: i32) {
+fn _tclearregion(_x1: i32, _y1: i32, _x2: i32, _y2: i32) {
     // Function body to be implemented
 }
 
-fn tsetchar(u: Rune, g: &Glyph, x: i32, y: i32) {
+fn _tcursor(_mode: i32) {
     // Function body to be implemented
 }
 
-fn tsetdirt(top: i32, bot: i32) {
+fn _tdeletechar(_n: i32) {
     // Function body to be implemented
 }
 
-fn tsetscroll(top: i32, bot: i32) {
+fn _tdeleteline(_n: i32) {
     // Function body to be implemented
 }
 
-fn tswapscreen() {
+fn _tinsertblank(_n: i32) {
     // Function body to be implemented
 }
 
-fn tsetmode(priv_: i32, set: i32, args: &[i32], narg: i32) {
+fn _tinsertblankline(_n: i32) {
     // Function body to be implemented
 }
 
-fn twrite(s: *const char, n: i32, may_echo: i32) -> i32 {
-    // Function body to be implemented
-    0
-}
-
-fn tfulldirt() {
-    // Function body to be implemented
-}
-
-fn tcontrolcode(code: u8) {
-    // Function body to be implemented
-}
-
-fn tdectest(c: char) {
-    // Function body to be implemented
-}
-
-fn tdefutf8(mode: char) {
-    // Function body to be implemented
-}
-
-fn tdefcolor(attrs: &[i32], nattr: &mut i32, l: i32) -> i32 {
+fn _tlinelen(_line: i32) -> i32 {
     // Function body to be implemented
     0
 }
 
-fn tdeftran(c: char) {
+fn _tmoveto(_x: i32, _y: i32) {
     // Function body to be implemented
 }
 
-fn tstrsequence(c: u8) {
+fn _tmoveato(_cx: i32, _cy: i32) {
     // Function body to be implemented
 }
 
-fn drawregion(x1: i32, y1: i32, x2: i32, y2: i32) {
+fn _tnewline(_first_col: i32) {
     // Function body to be implemented
 }
 
-fn selnormalize() {
+fn _tputtab(_one_if_set: i32) {
     // Function body to be implemented
 }
 
-fn selscroll(orig: i32, n: i32) {
+fn _tputc(_u: Rune) {
     // Function body to be implemented
 }
 
-fn selsnap(x: &mut i32, y: &mut i32, direction: i32) {
+fn _treset() {
     // Function body to be implemented
 }
 
-fn utf8decode(s: &str, u: &mut Rune, clen: usize) -> usize {
+fn _tscrollup(_top: i32, _bot: i32) {
+    // Function body to be implemented
+}
+
+fn _tscrolldown(_top: i32, _bot: i32) {
+    // Function body to be implemented
+}
+
+fn _tsetattr(_attrs: &[i32], _l: i32) {
+    // Function body to be implemented
+}
+
+fn _tsetchar(_u: Rune, _g: &Glyph, _x: i32, _y: i32) {
+    // Function body to be implemented
+}
+
+fn _tsetdirt(_top: i32, _bot: i32) {
+    // Function body to be implemented
+}
+
+fn _tsetscroll(_top: i32, _bot: i32) {
+    // Function body to be implemented
+}
+
+fn _tswapscreen() {
+    // Function body to be implemented
+}
+
+fn _tsetmode(_priv_: i32, _set: i32, _args: &[i32], _narg: i32) {
+    // Function body to be implemented
+}
+
+fn _twrite(_s: *const char, _n: i32, _may_echo: i32) -> i32 {
     // Function body to be implemented
     0
 }
 
-fn utf8decodebyte(c: char, i: &mut usize) -> Rune {
+fn _tfulldirt() {
+    // Function body to be implemented
+}
+
+fn _tcontrolcode(_code: u8) {
+    // Function body to be implemented
+}
+
+fn _tdectest(_c: char) {
+    // Function body to be implemented
+}
+
+fn _tdefutf8(_mode: char) {
+    // Function body to be implemented
+}
+
+fn _tdefcolor(_attrs: &[i32], _nattr: &mut i32, _l: i32) -> i32 {
     // Function body to be implemented
     0
 }
 
-fn utf8encodebyte(u: Rune, i: usize) -> char {
+fn _tdeftran(_c: char) {
+    // Function body to be implemented
+}
+
+fn _tstrsequence(_c: u8) {
+    // Function body to be implemented
+}
+
+fn _drawregion(_x1: i32, _y1: i32, _x2: i32, _y2: i32) {
+    // Function body to be implemented
+}
+
+fn _selnormalize() {
+    // Function body to be implemented
+}
+
+fn _selscroll(_orig: i32, _n: i32) {
+    // Function body to be implemented
+}
+
+fn _selsnap(_x: &mut i32, _y: &mut i32, _direction: i32) {
+    // Function body to be implemented
+}
+
+fn _utf8decode(_s: &str, _u: &mut Rune, _clen: usize) -> usize {
+    // Function body to be implemented
+    0
+}
+
+fn _utf8decodebyte(_c: char, _i: &mut usize) -> Rune {
+    // Function body to be implemented
+    0
+}
+
+fn _utf8encodebyte(_u: Rune, _i: usize) -> char {
     // Function body to be implemented
     '\0'
 }
 
-fn utf8validate(u: &mut Rune, i: usize) -> usize {
+fn _utf8validate(_u: &mut Rune, _i: usize) -> usize {
     // Function body to be implemented
     0
 }
 
-fn base64dec(s: &str) -> String {
+fn _base64dec(_s: &str) -> String {
     // Function body to be implemented
     String::new()
 }
 
-fn base64dec_getc(s: &mut &str) -> char {
+fn _base64dec_getc(_s: &mut &str) -> char {
     // Function body to be implemented
     '\0'
 }
