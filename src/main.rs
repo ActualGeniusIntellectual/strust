@@ -5,11 +5,12 @@ use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
-use nix::pty::{openpty, OpenptyResult};
-use nix::unistd::{close, dup2, execvp, fork, ForkResult};
 use unicode_width::UnicodeWidthChar;
 
 mod win;
+mod st;
+
+use crate::st::Line;
 
 // Constants from the C code
 const UTF_INVALID: u32 = 0xFFFD;
@@ -400,9 +401,27 @@ fn base64dec_getc(s: &mut &str) -> char {
     '\0'
 }
 
-fn xwrite(fd: i32, buf: &[u8], size: usize) -> isize {
-    // Function body to be implemented
-    0
+fn xwrite(fd: RawFd, buf: &[u8]) -> io::Result<usize> {
+    let mut len = buf.len();
+    let mut written = 0;
+
+    while len > 0 {
+        match nix::unistd::write(fd, &buf[written..]) {
+            Ok(r) => {
+                written += r;
+                len -= r;
+            },
+            Err(e) => {
+                if e.as_errno().unwrap() == nix::errno::Errno::EINTR {
+                    // Interrupted by a signal, try again
+                    continue;
+                }
+                return Err(io::Error::from_raw_os_error(e as i32));
+            }
+        }
+    }
+
+    Ok(written)
 }
 
 fn main() {
