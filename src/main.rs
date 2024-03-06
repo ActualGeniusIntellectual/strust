@@ -1,11 +1,5 @@
-use std::collections::HashMap;
-use std::io::{self, Read, Write};
-use std::os::unix::io::{AsRawFd, RawFd};
-use std::process::{Command, Stdio};
-use std::sync::{Arc, Mutex};
-use std::thread;
-use std::time::Duration;
-use unicode_width::UnicodeWidthChar;
+use std::io;
+use std::os::unix::io::RawFd;
 
 mod win;
 mod st;
