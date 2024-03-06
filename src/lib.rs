@@ -1,3 +1,6 @@
+// Disable warnings for unused functions and variables
+#![allow(dead_code)]
+
 // Constants and Macros translated to Rust functions
 fn min<T: Ord>(a: T, b: T) -> T {
     std::cmp::min(a, b)
@@ -19,7 +22,7 @@ fn div_ceil(n: usize, d: usize) -> usize {
     (n + d - 1) / d
 }
 
-fn limit<T: Ord>(x: &mut T, a: T, b: T) {
+fn limit<T: Ord + Copy>(x: &mut T, a: T, b: T) {
     *x = (*x).clamp(a, b);
 }
 
@@ -36,7 +39,7 @@ fn is_truecol(x: u32) -> bool {
 }
 
 // Enums translated to Rust enums
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum GlyphAttribute {
     Null = 0,
     Bold = 1 << 0,
@@ -53,20 +56,20 @@ enum GlyphAttribute {
     BoldFaint = (1 << 0) | (1 << 1),
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum SelectionMode {
     Idle = 0,
     Empty = 1,
     Ready = 2,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum SelectionType {
     Regular = 1,
     Rectangular = 2,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum SelectionSnap {
     Word = 1,
     Line = 2,
@@ -133,11 +136,11 @@ fn tattr_set(attr: i32) -> Result<(), std::io::Error> {
     Ok(())
 }
 
-fn tnew(cols: i32, rows: i32) {
+fn tnew(cols: i32, _rows: i32) {
     // Implement the logic
 }
 
-fn tresize(cols: i32, rows: i32) {
+fn tresize(cols: i32, _rows: i32) {
     // Implement the logic
 }
 
@@ -149,7 +152,7 @@ fn tty_hangup() {
     // Implement the logic
 }
 
-fn tty_new(cmd: &str, shell: &mut str, stty_args: Option<&str>, args: &mut [&str]) -> Result<(), std::io::Error> {
+fn tty_new(cmd: &str, _shell: &mut str, _stty_args: Option<&str>, _args: &mut [&str]) -> Result<(), std::io::Error> {
     // Implement the logic, return Result for error handling
     Ok(())
 }
@@ -159,11 +162,11 @@ fn tty_read() -> Result<usize, std::io::Error> {
     Ok(0)
 }
 
-fn tty_resize(cols: i32, rows: i32) {
+fn tty_resize(cols: i32, _rows: i32) {
     // Implement the logic
 }
 
-fn tty_write(data: &str, size: usize, written: i32) -> Result<(), std::io::Error> {
+fn tty_write(data: &str, _size: usize, _written: i32) -> Result<(), std::io::Error> {
     // Implement the logic, return Result for error handling
     Ok(())
 }
@@ -180,15 +183,15 @@ fn sel_init() {
     // Implement the logic
 }
 
-fn sel_start(x: i32, y: i32, snap: i32) {
+fn sel_start(x: i32, _y: i32, _snap: i32) {
     // Implement the logic
 }
 
-fn sel_extend(col: i32, row: i32, mode: i32, snap: i32) {
+fn sel_extend(col: i32, _row: i32, _mode: i32, _snap: i32) {
     // Implement the logic
 }
 
-fn selected(x: i32, y: i32) -> bool {
+fn selected(x: i32, _y: i32) -> bool {
     // Implement the logic, returning true or false
     false
 }
