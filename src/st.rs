@@ -83,7 +83,7 @@ type Ushort = u16;
 type Rune = u32;
 
 // Glyph structure translated to a Rust struct
-struct Glyph {
+pub struct Glyph {
     u: Rune,      // character code
     mode: Ushort, // attribute flags
     fg: u32,      // foreground
@@ -91,7 +91,7 @@ struct Glyph {
 }
 
 // Line and Arg translated to Rust types
-type Line = Vec<Glyph>;
+pub type Line = Vec<Glyph>;
 
 union Arg {
     i: i32,
