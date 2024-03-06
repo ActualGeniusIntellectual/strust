@@ -2,39 +2,39 @@
 #![allow(dead_code)]
 
 // Constants and Macros translated to Rust functions
-fn min<T: Ord>(a: T, b: T) -> T {
+fn _min<T: Ord>(a: T, b: T) -> T {
     std::cmp::min(a, b)
 }
 
-fn max<T: Ord>(a: T, b: T) -> T {
+fn _max<T: Ord>(a: T, b: T) -> T {
     std::cmp::max(a, b)
 }
 
-fn len<T>(a: &[T]) -> usize {
+fn _len<T>(a: &[T]) -> usize {
     a.len()
 }
 
-fn between<T: Ord>(x: T, a: T, b: T) -> bool {
+fn _between<T: Ord>(x: T, a: T, b: T) -> bool {
     a <= x && x <= b
 }
 
-fn div_ceil(n: usize, d: usize) -> usize {
+fn _div_ceil(n: usize, d: usize) -> usize {
     (n + d - 1) / d
 }
 
-fn limit<T: Ord + Copy>(x: &mut T, a: T, b: T) {
+fn _limit<T: Ord + Copy>(x: &mut T, a: T, b: T) {
     *x = (*x).clamp(a, b);
 }
 
-fn timediff(t1: std::time::Duration, t2: std::time::Duration) -> i64 {
+fn _timediff(t1: std::time::Duration, t2: std::time::Duration) -> i64 {
     t1.as_millis() as i64 - t2.as_millis() as i64
 }
 
-fn truecolor(r: u8, g: u8, b: u8) -> u32 {
+fn _truecolor(r: u8, g: u8, b: u8) -> u32 {
     1 << 24 | (r as u32) << 16 | (g as u32) << 8 | (b as u32)
 }
 
-fn is_truecol(x: u32) -> bool {
+fn _is_truecol(x: u32) -> bool {
     1 << 24 & x != 0
 }
 
@@ -102,106 +102,106 @@ union Arg {
 }
 
 // Function signatures (implementation details would depend on your specific application)
-fn die(msg: &str) {
+fn _die(_msg: &str) {
     // Implement error handling logic
 }
 
-fn redraw() {
+fn _redraw() {
     // Implement redraw logic
 }
 
-fn draw() {
+fn _draw() {
     // Implement draw logic
 }
 
 // Function prototypes translated to Rust
-fn print_screen(arg: &Arg) {
+fn _print_screen(_arg: &Arg) {
     // Implement the logic
 }
 
-fn print_sel(arg: &Arg) {
+fn _print_sel(_arg: &Arg) {
     // Implement the logic
 }
 
-fn send_break(arg: &Arg) {
+fn _send_break(_arg: &Arg) {
     // Implement the logic
 }
 
-fn toggle_printer(arg: &Arg) {
+fn _toggle_printer(_arg: &Arg) {
     // Implement the logic
 }
 
-fn tattr_set(attr: i32) -> Result<(), std::io::Error> {
+fn _tattr_set(_attr: i32) -> Result<(), std::io::Error> {
     // Implement the logic, return Result for error handling
     Ok(())
 }
 
-fn tnew(cols: i32, _rows: i32) {
+fn _tnew(_cols: i32, _rows: i32) {
     // Implement the logic
 }
 
-fn tresize(cols: i32, _rows: i32) {
+fn _tresize(_cols: i32, _rows: i32) {
     // Implement the logic
 }
 
-fn tset_dirt_attr(attr: i32) {
+fn _tset_dirt_attr(_attr: i32) {
     // Implement the logic
 }
 
-fn tty_hangup() {
+fn _tty_hangup() {
     // Implement the logic
 }
 
-fn tty_new(cmd: &str, _shell: &mut str, _stty_args: Option<&str>, _args: &mut [&str]) -> Result<(), std::io::Error> {
+fn _tty_new(_cmd: &str, _shell: &mut str, _stty_args: Option<&str>, _args: &mut [&str]) -> Result<(), std::io::Error> {
     // Implement the logic, return Result for error handling
     Ok(())
 }
 
-fn tty_read() -> Result<usize, std::io::Error> {
+fn _tty_read() -> Result<usize, std::io::Error> {
     // Implement the logic, return Result for error handling
     Ok(0)
 }
 
-fn tty_resize(cols: i32, _rows: i32) {
+fn _tty_resize(_cols: i32, _rows: i32) {
     // Implement the logic
 }
 
-fn tty_write(data: &str, _size: usize, _written: i32) -> Result<(), std::io::Error> {
+fn _tty_write(_data: &str, _size: usize, _written: i32) -> Result<(), std::io::Error> {
     // Implement the logic, return Result for error handling
     Ok(())
 }
 
-fn reset_title() {
+fn _reset_title() {
     // Implement the logic
 }
 
-fn sel_clear() {
+fn _sel_clear() {
     // Implement the logic
 }
 
-fn sel_init() {
+fn _sel_init() {
     // Implement the logic
 }
 
-fn sel_start(x: i32, _y: i32, _snap: i32) {
+fn _sel_start(_x: i32, _y: i32, _snap: i32) {
     // Implement the logic
 }
 
-fn sel_extend(col: i32, _row: i32, _mode: i32, _snap: i32) {
+fn _sel_extend(_col: i32, _row: i32, _mode: i32, _snap: i32) {
     // Implement the logic
 }
 
-fn selected(x: i32, _y: i32) -> bool {
+fn _selected(_x: i32, _y: i32) -> bool {
     // Implement the logic, returning true or false
     false
 }
 
-fn get_sel() -> String {
+fn _get_sel() -> String {
     // Implement the logic, returning a Rust String
     String::new()
 }
 
-fn utf8_encode(rune: u32) -> Result<String, std::io::Error> {
+fn _utf8_encode(_rune: u32) -> Result<String, std::io::Error> {
     // Implement the logic, return Result for proper error handling
     Ok(String::new())
 }
