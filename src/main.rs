@@ -14,30 +14,41 @@ const UTF_INVALID: u32 = 0xFFFD;
 const UTF_SIZ: usize = 4;
 const ESC_BUF_SIZ: usize = 128 * UTF_SIZ;
 const ESC_ARG_SIZ: usize = 16;
+
+#[allow(dead_code)]
 const STR_BUF_SIZ: usize = ESC_BUF_SIZ;
+
+#[allow(dead_code)]
 const STR_ARG_SIZ: usize = ESC_ARG_SIZ;
 
+#[allow(dead_code)]
 // Converted C macros to Rust functions or inline code
 fn is_set(flag: u32, term_mode: u32) -> bool {
     (term_mode & flag) != 0
 }
 
+#[allow(dead_code)]
 fn is_control_c0(c: char) -> bool {
     ('\0'..='\x1f').contains(&c) || c == '\x7f'
 }
 
+#[allow(dead_code)]
 fn is_control_c1(c: char) -> bool {
     ('\u{80}'..='\u{9f}').contains(&c)
 }
 
+#[allow(dead_code)]
 fn is_control(c: char) -> bool {
     is_control_c0(c) || is_control_c1(c)
 }
 
+#[allow(dead_code)]
 fn is_delim(c: char, word_delimiters: &str) -> bool {
     c != '\0' && word_delimiters.contains(c)
 }
 
+// Allow dead code for now
+#[allow(dead_code)]
 // Enums converted to Rust enums
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum TermMode {
@@ -50,12 +61,14 @@ enum TermMode {
     Utf8 = 1 << 6,
 }
 
+#[allow(dead_code)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum CursorMovement {
     Save,
     Load,
 }
 
+#[allow(dead_code)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum CursorState {
     Default = 0,
@@ -63,6 +76,7 @@ enum CursorState {
     Origin = 2,
 }
 
+#[allow(dead_code)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Charset {
     Graphic0,
@@ -74,6 +88,7 @@ enum Charset {
     Fin,
 }
 
+#[allow(dead_code)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum EscapeState {
     Start = 1,
@@ -85,6 +100,7 @@ enum EscapeState {
     Utf8 = 64,
 }
 
+#[allow(dead_code)]
 // Structs translated to Rust structs
 struct TCursor {
     attr: st::Glyph, // current char attributes
@@ -93,6 +109,7 @@ struct TCursor {
     state: char,
 }
 
+#[allow(dead_code)]
 // Define a Rust struct corresponding to the C Selection struct
 struct Selection {
     mode: i32,
@@ -108,13 +125,14 @@ struct Selection {
     alt: i32,
 }
 
+#[allow(dead_code)]
 // Define the Coordinates struct used in Selection
 struct Coordinates {
     x: i32,
     y: i32,
 }
 
-
+#[allow(dead_code)]
 struct Term {
     row: i32,           // Number of rows
     col: i32,           // Number of columns
@@ -135,6 +153,7 @@ struct Term {
     lastc: Rune,        // Last printed character (0 if control character)
 }
 
+#[allow(dead_code)]
 // CSI Escape sequence struct
 struct CSIEscape {
     buf: [char; ESC_BUF_SIZ], // raw string
@@ -145,6 +164,7 @@ struct CSIEscape {
     mode: [char; 2],
 }
 
+#[allow(dead_code)]
 // STR Escape sequence struct
 struct STREscape {
     escape_type: char,            // ESC type
@@ -155,8 +175,12 @@ struct STREscape {
     num_args: usize,              // Number of arguments
 }
 
+// Allow dead code for now
+#[allow(dead_code)]
 static mut IOFD: i32 = 1;
+#[allow(dead_code)]
 static mut CMDFD: i32 = 0;  // Initialized to a default value, adjust as needed
+#[allow(dead_code)]
 static mut PID: libc::pid_t = 0;  // Using libc crate for pid_t type
 
 
@@ -378,6 +402,8 @@ fn _selsnap(_x: &mut i32, _y: &mut i32, _direction: i32) {
     // Function body to be implemented
 }
 
+// Allow dead code for now
+#[allow(dead_code)]
 fn utf8_decode(c: &[u8], u: &mut u32) -> usize {
     *u = UTF_INVALID;
 
@@ -408,7 +434,8 @@ fn utf8_decode(c: &[u8], u: &mut u32) -> usize {
     len
 }
 
-
+// Allow dead code for now
+#[allow(dead_code)]
 fn utf8_decode_byte(c: u8) -> (Rune, usize) {
     let utfmask: [u8; 4] = [0x80, 0xE0, 0xF0, 0xF8];
     let utfbyte: [u8; 4] = [0x00, 0xC0, 0xE0, 0xF0];
@@ -422,11 +449,34 @@ fn utf8_decode_byte(c: u8) -> (Rune, usize) {
     (0, 0)
 }
 
-fn _utf8encodebyte(_u: Rune, _i: usize) -> char {
-    // Function body to be implemented
-    '\0'
+// Allow dead code for now
+#[allow(dead_code)]
+fn utf8_encode(u: Rune) -> Vec<u8> {
+    let mut encoded = Vec::new();
+    let mut rune = u;
+    let len = utf8_validate(&mut rune, 0);
+
+    if len > UTF_SIZ {
+        return encoded;
+    }
+
+    for i in (1..len).rev() {
+        encoded.push(utf8_encode_byte(rune, 0));
+        rune >>= 6;
+    }
+    encoded.insert(0, utf8_encode_byte(rune, len));
+
+    encoded
 }
 
+// Allow dead code for now
+#[allow(dead_code)]
+fn utf8_encode_byte(u: Rune, i: usize) -> u8 {
+    UTFBYTE[i] | ((u as u8) & !UTFMASK[i])
+}
+
+// Allow dead code for now
+#[allow(dead_code)]
 fn utf8_validate(u: &mut Rune, mut i: usize) -> usize {
     if !((*u >= UTFMIN[i] && *u <= UTFMAX[i]) || (*u >= 0xD800 && *u <= 0xDFFF)) {
         *u = UTF_INVALID;
@@ -449,6 +499,8 @@ fn _base64dec_getc(_s: &mut &str) -> char {
 }
 
 
+// Allow dead code for now
+#[allow(dead_code)]
 fn xwrite(fd: RawFd, buf: &[u8]) -> io::Result<usize> {
     let mut len = buf.len();
     let mut written = 0;
