@@ -7,6 +7,7 @@ mod win;
 mod st;
 
 use crate::st::Line;
+use crate::st::Glyph;
 
 // Constants from the C code
 const UTF_INVALID: u32 = 0xFFFD;
@@ -154,9 +155,19 @@ struct STREscape {
     num_args: usize,              // Number of arguments
 }
 
-// Assuming relevant types and constants are defined elsewhere in your Rust code.
-type Rune = u32; // Placeholder type, adjust as needed
-struct Glyph; // Placeholder struct, define as needed
+static mut IOFD: i32 = 1;
+static mut CMDFD: i32 = 0;  // Initialized to a default value, adjust as needed
+static mut PID: libc::pid_t = 0;  // Using libc crate for pid_t type
+
+
+const UTFBYTE: [u8; UTF_SIZ + 1] = [0x80, 0, 0xC0, 0xE0, 0xF0];
+const UTFMASK: [u8; UTF_SIZ + 1] = [0xC0, 0x80, 0xE0, 0xF0, 0xF8];
+const UTFMIN: [Rune; UTF_SIZ + 1] = [0, 0, 0x80, 0x800, 0x10000];
+const UTFMAX: [Rune; UTF_SIZ + 1] = [0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF];
+
+// Assuming Rune is an alias for u32
+type Rune = u32;
+
 
 // Functions translated from C to Rust
 fn _execsh(_cmd: *mut char, _args: *mut *mut char) {
@@ -367,14 +378,48 @@ fn _selsnap(_x: &mut i32, _y: &mut i32, _direction: i32) {
     // Function body to be implemented
 }
 
-fn _utf8decode(_s: &str, _u: &mut Rune, _clen: usize) -> usize {
-    // Function body to be implemented
-    0
+fn utf8_decode(c: &[u8], u: &mut u32) -> usize {
+    *u = UTF_INVALID;
+
+    if c.is_empty() {
+        return 0;
+    }
+
+    let (mut udecoded, mut len) = utf8_decode_byte(c[0]);
+    if !(1..=UTF_SIZ).contains(&len) {
+        return 1;
+    }
+
+    for (i, &byte) in c.iter().enumerate().take(len).skip(1) {
+        let (mut new_udecoded, type_) = utf8_decode_byte(byte);
+        udecoded = (udecoded << 6) | new_udecoded;
+        if type_ != 0 {
+            return i;
+        }
+    }
+
+    if c.len() < len {
+        return 0;
+    }
+
+    *u = udecoded;
+    utf8_validate(u, len);
+
+    len
 }
 
-fn _utf8decodebyte(_c: char, _i: &mut usize) -> Rune {
-    // Function body to be implemented
-    0
+
+fn utf8_decode_byte(c: u8) -> (Rune, usize) {
+    let utfmask: [u8; 4] = [0x80, 0xE0, 0xF0, 0xF8];
+    let utfbyte: [u8; 4] = [0x00, 0xC0, 0xE0, 0xF0];
+
+    for (i, (&mask, &byte)) in utfmask.iter().zip(utfbyte.iter()).enumerate() {
+        if (c & mask) == byte {
+            return ((c & !mask) as Rune, i);
+        }
+    }
+
+    (0, 0)
 }
 
 fn _utf8encodebyte(_u: Rune, _i: usize) -> char {
@@ -382,9 +427,15 @@ fn _utf8encodebyte(_u: Rune, _i: usize) -> char {
     '\0'
 }
 
-fn _utf8validate(_u: &mut Rune, _i: usize) -> usize {
-    // Function body to be implemented
-    0
+fn utf8_validate(u: &mut Rune, mut i: usize) -> usize {
+    if !((*u >= UTFMIN[i] && *u <= UTFMAX[i]) || (*u >= 0xD800 && *u <= 0xDFFF)) {
+        *u = UTF_INVALID;
+    }
+    while i < UTFMAX.len() && *u > UTFMAX[i] {
+        i += 1;
+    }
+
+    i
 }
 
 fn _base64dec(_s: &str) -> String {
