@@ -488,9 +488,15 @@ fn utf8_validate(u: &mut Rune, mut i: usize) -> usize {
     i
 }
 
-fn _base64dec(_s: &str) -> String {
-    // Function body to be implemented
-    String::new()
+#[allow(dead_code)]
+fn base64dec_getc(src: &mut std::str::Chars) -> char {
+    while let Some(next_char) = src.clone().next() {
+        if next_char.is_ascii_graphic() || next_char.is_whitespace() {
+            break;
+        }
+        src.next();  // Advance the iterator if non-printable
+    }
+    src.next().unwrap_or('=')
 }
 
 fn _base64dec_getc(_s: &mut &str) -> char {
