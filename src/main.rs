@@ -411,13 +411,13 @@ fn utf8_decode(c: &[u8], u: &mut u32) -> usize {
         return 0;
     }
 
-    let (mut udecoded, mut len) = utf8_decode_byte(c[0]);
+    let (mut udecoded, len) = utf8_decode_byte(c[0]);
     if !(1..=UTF_SIZ).contains(&len) {
         return 1;
     }
 
     for (i, &byte) in c.iter().enumerate().take(len).skip(1) {
-        let (mut new_udecoded, type_) = utf8_decode_byte(byte);
+        let (new_udecoded, type_) = utf8_decode_byte(byte);
         udecoded = (udecoded << 6) | new_udecoded;
         if type_ != 0 {
             return i;
@@ -460,7 +460,7 @@ fn utf8_encode(u: Rune) -> Vec<u8> {
         return encoded;
     }
 
-    for i in (1..len).rev() {
+    for _ in (1..len).rev() {
         encoded.push(utf8_encode_byte(rune, 0));
         rune >>= 6;
     }
